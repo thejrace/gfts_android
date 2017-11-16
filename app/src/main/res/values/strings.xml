@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Gitaş Mobil</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Geri Bildirim</string>
+    <string name="title_activity_filo_takip">Filo Takip</string>
+    <string name="title_activity_otobus_takip">Otobüs Detay</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="title_orer">Orer</string>
+    <string name="title_mesaj">Mesaj</string>
+    <string name="title_iys">IYS</string>
+    <string name="title_not">Not</string>
+
+</resources>
