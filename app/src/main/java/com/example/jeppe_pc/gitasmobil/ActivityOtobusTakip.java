@@ -43,7 +43,7 @@ public class ActivityOtobusTakip extends AppCompatActivity {
         setContentView(R.layout.activity_otobus_takip);
 
         Intent i = getIntent();
-        otobus_box_data = (OtobusBoxData)i.getSerializableExtra("otobus_data");
+        otobus_box_data = (OtobusBoxData)i.getSerializableExtra("otobus_dataaaaaa");
 
         System.out.println(otobus_box_data.get_oto());
         System.out.println(otobus_box_data.get_seferler());
