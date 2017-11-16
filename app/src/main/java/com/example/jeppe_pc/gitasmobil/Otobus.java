@@ -78,8 +78,13 @@ public class Otobus {
     }
 
     private void update( final Activity context ) throws JSONException {
-        JSONArray data = box_data.get_seferler();
-        if( data.length() == 0 ) return;
+
+        if( box_data.get_seferler().size() == 0 ) return;
+
+        JSONArray data = new JSONArray();
+        for( SeferData sefer : box_data.get_seferler() ){
+            data.put(sefer.tojson());
+        }
 
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         Date date = new Date();
@@ -347,7 +352,7 @@ class Filo_Task_Template {
 class Orer_Download extends Filo_Task_Template {
 
     private String aktif_sefer_verisi = "";
-    private JSONArray seferler = new JSONArray();
+    private ArrayList<SeferData> seferler = new ArrayList<>();
     private boolean kaydet = false;
     public Orer_Download( String oto, String cookie ){
         this.oto = oto;
@@ -365,7 +370,7 @@ class Orer_Download extends Filo_Task_Template {
     }
     public void sefer_veri_ayikla( Document document ){
         if( error ){
-            seferler = new JSONArray();
+            seferler = new ArrayList<>();
             return;
         }
         Elements table = null;
@@ -427,19 +432,19 @@ class Orer_Download extends Filo_Task_Template {
                         1,
                         0
                 );
-                seferler.put(tek_sefer_data.tojson());
+                seferler.add(tek_sefer_data);
                 cols.clear();
             }
             rows.clear();
         } catch( NullPointerException e ){
             e.printStackTrace();
             System.out.println( "["+Common.get_current_hmin() + "]  "+  oto+ " ORER sefer veri ayıklama hatası. Tekrar deneniyor.");
-            seferler = new JSONArray();
+            seferler = new ArrayList<>();
             error = true;
             //yap();
         }
     }
-    public JSONArray get_seferler(){
+    public ArrayList<SeferData> get_seferler(){
         return seferler;
     }
     public String get_aktif_sefer_verisi(){

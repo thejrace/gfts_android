@@ -15,5 +15,8 @@
     <string name="title_mesaj">Mesaj</string>
     <string name="title_iys">IYS</string>
     <string name="title_not">Not</string>
+    <string name="getir">Getir</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

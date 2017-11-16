@@ -1,8 +1,9 @@
 package com.example.jeppe_pc.gitasmobil;
 
-import org.json.JSONArray;
+
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by Jeppe-PC on 10/25/2017.
@@ -12,7 +13,7 @@ import java.io.Serializable;
 public class OtobusBoxData implements Serializable{
 
     private String oto, aktif_plaka, ruhsat_plaka, aktif_sefer_data;
-    private JSONArray seferler = new JSONArray();
+    private ArrayList<SeferData> seferler = new ArrayList<>();
 
     public OtobusBoxData( String _oto, String _aktif_plaka, String _ruhsat_plaka ){
         oto = _oto;
@@ -23,7 +24,7 @@ public class OtobusBoxData implements Serializable{
     public void set_aktif_sefer_data(String _aktif_sefer_data){
         aktif_sefer_data = _aktif_sefer_data;
     }
-    public void set_sefer_data( JSONArray sefer_data ){
+    public void set_sefer_data( ArrayList<SeferData> sefer_data ){
         seferler = sefer_data;
     }
 
@@ -39,7 +40,7 @@ public class OtobusBoxData implements Serializable{
     public String get_aktif_sefer_data(){
         return aktif_sefer_data;
     }
-    public JSONArray get_seferler(){
+    public ArrayList<SeferData> get_seferler(){
         return seferler;
     }
 

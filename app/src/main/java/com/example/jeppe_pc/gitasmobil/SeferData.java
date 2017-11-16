@@ -3,11 +3,13 @@ package com.example.jeppe_pc.gitasmobil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * Created by Jeppe-PC on 10/25/2017.
  */
 
-public class SeferData {
+public class SeferData implements Serializable{
 
     private String no;
     private String hat;

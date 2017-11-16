@@ -15,4 +15,5 @@
     <color name="led_tamam">#afafaf</color>
     <color name="led_yarim">#ff6666</color>
     <color name="led_def">#000</color>
+    <color name="main_background_lighter">#FF1E1D1D</color>
 </resources>
