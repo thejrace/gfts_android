@@ -7,11 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 
 public class FragmentTakipOrer extends Fragment {
 
     private ProgressDialog loader;
+    private ListView seferler_lw;
     public FragmentTakipOrer() {
 
     }
@@ -23,7 +25,9 @@ public class FragmentTakipOrer extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_fragment_takip_orer, container, false);
         //loader = ProgressDialog.show(getActivity(), "Lütfen bekleyin...", "Arayüz oluşturuluyor.", true);
 
-
+        seferler_lw = (ListView)layout.findViewById(R.id.seferler_listview);
+        ActivityOtobusTakip activity_ref = (ActivityOtobusTakip)getActivity();
+        seferler_lw.setAdapter(new SeferTableListViewAdapter( activity_ref, activity_ref.get_otobus_box_data().get_seferler() ));
 
 
         return layout;

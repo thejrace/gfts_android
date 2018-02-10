@@ -4,30 +4,43 @@
     android:layout_height="match_parent"
     android:id="@+id/takip_orer_wrapper"
     android:orientation="vertical"
+    android:background="@color/main_background"
     tools:context="com.example.jeppe_pc.gitasmobil.FragmentTakipOrer">
 
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
         android:orientation="horizontal">
 
         <EditText
-            android:layout_width="75dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:id="@+id/orer_tarih_dp" />
+            android:id="@+id/orer_tarih_dp"
+            android:background="@drawable/input_bg"
+            android:textSize="14sp"
+            android:textColor="@color/gitas_action_bar_text_color"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="00/00/0000"
+            android:inputType="textPersonName"/>
 
-        <Button android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+        <Button android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:textColor="@color/gitas_action_bar_text_color"
                 android:id="@+id/btn_orer_tarih_download"
+                android:background="@drawable/gbtn"
                 android:text="@string/getir" />
-
-
 
     </LinearLayout>
 
-
-
-
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:id="@+id/seferler_listview" />
 
 </LinearLayout>

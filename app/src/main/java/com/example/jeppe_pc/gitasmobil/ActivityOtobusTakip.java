@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class ActivityOtobusTakip extends AppCompatActivity {
 
     private TextView mTextMessage;
@@ -52,8 +54,18 @@ public class ActivityOtobusTakip extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otobus_takip);
 
-        Intent i = getIntent();
-        otobus_box_data = (OtobusBoxData)i.getSerializableExtra("otobus_data");
+        /*Intent i = getIntent();
+        otobus_box_data = (OtobusBoxData)i.getSerializableExtra("otobus_data");*/
+
+        otobus_box_data = new OtobusBoxData("A-1636", "34 YG 3893", "34 YH 3838");
+        otobus_box_data.set_aktif_sefer_data("Test durak");
+        ArrayList<SeferData> test_list = new ArrayList<>();
+        test_list.add(new SeferData("1", "17", "34__G31", "00:10", "00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10" ));
+        test_list.add(new SeferData("2", "17", "34__G31", "00:10", "00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10" ));
+        test_list.add(new SeferData("3", "17", "34__G31", "00:10", "00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10" ));
+        test_list.add(new SeferData("4", "17", "34__G31", "00:10", "00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10","00:10" ));
+        otobus_box_data.set_sefer_data(test_list);
+
 
         // ilk acilista orer fragment
         takip_orer_fragment = new FragmentTakipOrer();
@@ -62,6 +74,10 @@ public class ActivityOtobusTakip extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    public OtobusBoxData get_otobus_box_data(){
+        return otobus_box_data;
     }
 
     private void init_tab_fragment( Fragment fragment ){
