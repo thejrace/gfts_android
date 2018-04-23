@@ -19,7 +19,7 @@
         <item name="android:textColorPrimary">@color/gitas_action_bar_text_color</item>
     </style>
 
-    <style name="AppTheme.PopupOverlay"  parent="@android:style/TextAppearance.Holo" />
+    <style name="AppTheme.PopupOverlay" parent="@android:style/TextAppearance.Holo" />
 
     <style name="notf_buyuk_style">
         <item name="android:textStyle">bold</item>
@@ -27,9 +27,36 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="notf_kucuk_style" >
+    <style name="notf_kucuk_style">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="sefer_row_text_style">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/main_text_fill</item>
+    </style>
+
+    <style name="sefer_row_surucu_text_style">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/main_text_fill</item>
+    </style>
+    <style name="mesaj_text_style">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/filo_table_tamam</item>
+
+    </style>
+    <style name="mesaj_text_header_style">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+    <style name="otobus_takip_fragment_header">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/filo_table_tamam</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

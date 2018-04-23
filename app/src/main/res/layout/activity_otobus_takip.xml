@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/main_background"
-    tools:context="com.example.jeppe_pc.gitasmobil.ActivityOtobusTakip">
+    tools:context="com.obarey.jeppe_pc.gitasfilotakipmobil.ActivityOtobusTakip">
 
     <FrameLayout
         android:id="@+id/otobus_takip_content"

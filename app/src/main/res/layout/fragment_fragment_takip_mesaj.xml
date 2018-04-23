@@ -1,13 +1,73 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.jeppe_pc.gitasmobil.FragmentTakipMesaj">
+    android:id="@+id/takip_orer_wrapper"
+    android:orientation="vertical"
+    android:background="@color/main_background"
+    tools:context="com.obarey.jeppe_pc.gitasfilotakipmobil.FragmentTakipMesaj">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
+        android:id="@+id/otobus_takip_fragment_header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/otobus_takip_fragment_header"
+        android:textAlignment="center"
+        android:layout_margin="5dp"/>
 
-</FrameLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tarih_dp"
+            android:background="@drawable/input_bg"
+            android:textSize="14sp"
+            android:textColor="@color/gitas_action_bar_text_color"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="00/00/0000"
+            android:inputType="textPersonName"/>
+
+        <Button android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:textColor="@color/gitas_action_bar_text_color"
+            android:id="@+id/btn_tarih_data_download"
+            android:background="@drawable/gbtn"
+            android:text="@string/getir" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <Button android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:textColor="@color/gitas_action_bar_text_color"
+            android:id="@+id/btn_gelen_giden"
+            android:background="@drawable/gbtn"
+            android:text="@string/giden_mesaj" />
+
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/mesajlar_listview"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        tools:layout_width="match_parent" />
+
+</LinearLayout>

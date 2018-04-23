@@ -14,22 +14,23 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:background="@drawable/app_ico" />
+        app:srcCompat="@drawable/app_ico" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Gitaş Mobil"
+        android:text="@string/app_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="obarey@obarey.com" />
+        android:text="@string/app_name" />
 
 </LinearLayout>

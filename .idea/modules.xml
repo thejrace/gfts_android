@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GitasMobil.iml" filepath="$PROJECT_DIR$/GitasMobil.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GitasFiloTakipMobil.iml" filepath="$PROJECT_DIR$/GitasFiloTakipMobil.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

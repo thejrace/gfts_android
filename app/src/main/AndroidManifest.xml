@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.jeppe_pc.gitasmobil">
+    package="com.obarey.jeppe_pc.gitasfilotakipmobil">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -28,7 +28,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ActivityOtobusTakip"
-            android:label="@string/title_activity_otobus_takip"></activity>
+            android:label="@string/title_activity_otobus_takip"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

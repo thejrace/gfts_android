@@ -6,9 +6,17 @@
     <color name="gitas_action_bar_text_color">#ffffff</color>
     <color name="gitas_mor">#7b3375</color>
     <color name="main_background">#302e2f</color>
+    <color name="main_text_fill">#272727</color>
 
 
     <color name="white">#fff</color>
+
+    <color name="filo_table_iptal">#f4bcbc</color>
+    <color name="filo_table_aktif">#caeaae</color>
+    <color name="filo_table_bekleyen">#fff</color>
+    <color name="filo_table_tamam">#e6e6e6</color>
+    <color name="filo_table_yarim">#ffe8e8</color>
+
     <color name="led_iptal">#ff0000</color>
     <color name="led_aktif">#00ff36</color>
     <color name="led_bekleyen">#ffffff</color>
@@ -16,4 +24,6 @@
     <color name="led_yarim">#ff6666</color>
     <color name="led_def">#000</color>
     <color name="main_background_lighter">#FF1E1D1D</color>
+
+
 </resources>

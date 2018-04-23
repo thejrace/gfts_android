@@ -11,6 +11,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+
     <string name="title_orer">Orer</string>
     <string name="title_mesaj">Mesaj</string>
     <string name="title_iys">IYS</string>
@@ -18,5 +19,9 @@
     <string name="getir">Getir</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="giden_mesaj">Giden Mesajlar</string>
+    <string name="gelen_mesaj">Gelen Mesajlar</string>
+    <string name="aktif_gune_don">Aktif Güne Dön</string>
+    <string name="daha_fazla">Daha Fazla</string>
 
 </resources>
