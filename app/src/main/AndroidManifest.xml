@@ -29,7 +29,24 @@
         <activity
             android:name=".ActivityOtobusTakip"
             android:label="@string/title_activity_otobus_takip"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name="com.obarey.jeppe_pc.gitasfilotakipmobil.AlarmService"
+            android:enabled="true" >
+        </service>
+
+        <receiver
+            android:name="com.obarey.jeppe_pc.gitasfilotakipmobil.AlarmServiceRestarter"
+            android:enabled="true"
+            android:exported="true"
+            android:label="RestartServiceWhenStopped">
+            <intent-filter>
+                <action android:name="com.obarey.jeppe_pc.gitasfilotakipmobil.ActivityRecognition.RestartAlarmService"/>
+            </intent-filter>
+        </receiver>
+
+
     </application>
 
 </manifest>
