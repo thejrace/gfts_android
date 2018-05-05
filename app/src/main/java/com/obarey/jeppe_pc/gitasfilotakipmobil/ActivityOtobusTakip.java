@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class ActivityOtobusTakip extends AppCompatActivity {
 
     private String oto;
-    private OtobusBoxData otobus_box_data;
+    private OtobusPopupData otobus_box_data;
 
     private android.support.v4.app.Fragment takip_orer_fragment, takip_iys_fragment, takip_mesaj_fragment, takip_not_fragment;
 
@@ -52,10 +52,8 @@ public class ActivityOtobusTakip extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otobus_takip);
 
-
-
         Intent i = getIntent();
-        otobus_box_data = (OtobusBoxData)i.getSerializableExtra("otobus_data");
+        otobus_box_data = (OtobusPopupData)i.getSerializableExtra("otobus_data");
 
         // ilk acilista orer fragment
         takip_orer_fragment = new FragmentTakipOrer();
@@ -66,7 +64,7 @@ public class ActivityOtobusTakip extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-    public OtobusBoxData get_otobus_box_data(){
+    public OtobusPopupData get_otobus_box_data(){
         return otobus_box_data;
     }
 

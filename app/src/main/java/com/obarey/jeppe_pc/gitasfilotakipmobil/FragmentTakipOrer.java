@@ -29,30 +29,39 @@ public class FragmentTakipOrer extends Fragment {
     private String oto;
     private SeferTableListViewAdapter lv_adapter;
     private ArrayList<SeferData> aktif_gun_data = new ArrayList();
+    private ArrayList<SeferData> downloaded_data = new ArrayList();
+    private boolean data_downloaded = false;
     public FragmentTakipOrer() {
 
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_fragment_takip_orer, container, false);
-        //loader = ProgressDialog.show(getActivity(), "Lütfen bekleyin...", "Arayüz oluşturuluyor.", true);
-
         Button tarih_data_download = (Button)layout.findViewById(R.id.btn_tarih_data_download);
-        Button aktif_gune_don = (Button)layout.findViewById(R.id.btn_aktif_gune_don);
+        final Button aktif_gune_don = (Button)layout.findViewById(R.id.btn_aktif_gune_don);
         dp = (EditText)layout.findViewById(R.id.tarih_dp);
         TextView header = (TextView)layout.findViewById(R.id.otobus_takip_fragment_header);
-
-        ActivityOtobusTakip activity_ref = (ActivityOtobusTakip)getActivity();
+        seferler_lw = (ListView)layout.findViewById(R.id.seferler_listview);
+        final ActivityOtobusTakip activity_ref = (ActivityOtobusTakip)getActivity();
         oto = activity_ref.get_otobus_box_data().get_oto();
         header.setText( oto );
-        aktif_gun_data = activity_ref.get_otobus_box_data().get_seferler();
-        seferler_lw = (ListView)layout.findViewById(R.id.seferler_listview);
-        lv_adapter = new SeferTableListViewAdapter( activity_ref, aktif_gun_data );
-        seferler_lw.setAdapter(lv_adapter);
-
+        if( !data_downloaded ){
+            data_download("AT", new NoArgumentCallBack() {
+                @Override
+                public void action() {
+                    aktif_gun_data = downloaded_data;
+                    lv_adapter = new SeferTableListViewAdapter( activity_ref, aktif_gun_data );
+                    seferler_lw.setAdapter(lv_adapter);
+                    lv_adapter.notifyDataSetChanged();
+                    loader.dismiss();
+                    dp.setText("");
+                }
+            });
+            data_downloaded = true;
+        } else {
+            seferler_lw.setAdapter( lv_adapter );
+        }
         dp.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -61,7 +70,6 @@ public class FragmentTakipOrer extends Fragment {
                     int yil = takvim.get(Calendar.YEAR);
                     int ay = takvim.get(Calendar.MONTH);
                     int gun = takvim.get(Calendar.DAY_OF_MONTH);
-
                     DatePickerDialog dpd = new DatePickerDialog(getActivity(),
                             new DatePickerDialog.OnDateSetListener() {
                                 @Override
@@ -102,87 +110,100 @@ public class FragmentTakipOrer extends Fragment {
 
             @Override
             public void onClick( View v ){
-                loader = ProgressDialog.show(getActivity(), "Lütfen bekleyin...", "Veri alınıyor..", true);
-                Thread th = new Thread(new Runnable() {
+
+                String dp_val = dp.getText().toString();
+
+                final ActivityOtobusTakip activity_ref = (ActivityOtobusTakip)getActivity();
+                if( dp_val.trim().equals("") ){
+                    activity_ref.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loader.dismiss();
+                            Toast.makeText(activity_ref, "Geçersiz tarih girildi.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    return;
+                }
+                data_download(Common.rev_date(dp_val.trim()), new NoArgumentCallBack() {
                     @Override
-                    public void run() {
-                        String dp_val = dp.getText().toString();
-
-                        final ActivityOtobusTakip activity_ref = (ActivityOtobusTakip)getActivity();
-                        if( dp_val.trim().equals("") ){
-                            activity_ref.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    loader.dismiss();
-                                    Toast.makeText(activity_ref, "Geçersiz tarih girildi.", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                            return;
-                        }
-                        WebRequest req = new WebRequest();
-                        try {
-                            JSONObject data = req.req(WebRequest.MOBIL_SERVIS_URL, "req=orer_download&oto="+oto+"&baslangic="+Common.rev_date(dp_val.trim())+"&bitis=&excel=true").getJSONObject("data");
-                            JSONArray orer_data = data.getJSONArray("orer_data");
-                            final ArrayList<SeferData> downloaded_data = new ArrayList<>();
-                            JSONObject sefer;
-                            if( orer_data.length() == 0 ){
-                                activity_ref.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        loader.dismiss();
-                                        Toast.makeText(activity_ref, "Bu tarihin ORER verisi yok.", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                                return;
-                            }
-                            for( int k = 0; k < orer_data.length(); k++ ){
-                                sefer = orer_data.getJSONObject(k);
-                                downloaded_data.add( new SeferData(
-                                        sefer.getString("no"),
-                                        sefer.getString("hat"),
-                                        "",
-                                        "",
-                                        oto,
-                                        sefer.getString("surucu"),
-                                        "",
-                                        "",
-                                        sefer.getString("gelis"),
-                                        sefer.getString("orer"),
-                                        String.valueOf(SeferSure.hesapla(sefer.getString("gidis"), sefer.getString("bitis"))),
-                                        sefer.getString("amir"),
-                                        sefer.getString("gidis"),
-                                        sefer.getString("tahmin"),
-                                        sefer.getString("bitis"),
-                                        sefer.getString("durum"),
-                                        sefer.getString("durum_kodu"),
-                                        sefer.getString("plaka"),
-                                        1,
-                                        1
-                                ));
-                            }
-                            activity_ref.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    lv_adapter.set_data( downloaded_data );
-                                    lv_adapter.notifyDataSetChanged();
-                                    loader.dismiss();
-                                    dp.setText("");
-                                }
-                            });
-
-                        } catch( JSONException e ){
-                            e.printStackTrace();
-                        }
+                    public void action() {
+                        lv_adapter.set_data( downloaded_data );
+                        lv_adapter.notifyDataSetChanged();
+                        loader.dismiss();
+                        dp.setText("");
                     }
                 });
-                th.setDaemon(true);
-                th.start();
             }
         });
 
         return layout;
     }
 
+    private void data_download( final String _tarih, final NoArgumentCallBack _cb ){
+        loader = ProgressDialog.show(getActivity(), "Lütfen bekleyin...", "Veri alınıyor..", true);
+        final ActivityOtobusTakip activity_ref = (ActivityOtobusTakip)getActivity();
+        Thread th = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                WebRequest req = new WebRequest();
+                try {
+                    JSONObject data = req.req(WebRequest.MOBIL_SERVIS_URL, "req=orer_download&oto="+oto+"&baslangic="+_tarih+"&bitis=&excel=true").getJSONObject("data");
+                    JSONArray orer_data = data.getJSONArray("orer_data");
+                    downloaded_data = new ArrayList<>();
+                    JSONObject sefer;
+                    if( orer_data.length() == 0 ){
+                        activity_ref.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                loader.dismiss();
+                                Toast.makeText(activity_ref, "Bu tarihin ORER verisi yok.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        return;
+                    }
+                    for( int k = 0; k < orer_data.length(); k++ ){
+                        sefer = orer_data.getJSONObject(k);
+                        downloaded_data.add( new SeferData(
+                                sefer.getString("no"),
+                                sefer.getString("hat"),
+                                "",
+                                "",
+                                oto,
+                                sefer.getString("surucu"),
+                                "",
+                                "",
+                                sefer.getString("gelis"),
+                                sefer.getString("orer"),
+                                String.valueOf(SeferSure.hesapla(sefer.getString("gidis"), sefer.getString("bitis"))),
+                                sefer.getString("amir"),
+                                sefer.getString("gidis"),
+                                sefer.getString("tahmin"),
+                                sefer.getString("bitis"),
+                                sefer.getString("durum"),
+                                sefer.getString("durum_kodu"),
+                                sefer.getString("plaka"),
+                                1,
+                                1
+                        ));
+                    }
+                    activity_ref.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            _cb.action();
+                        }
+                    });
+
+                } catch( JSONException e ){
+                    e.printStackTrace();
+                }
+            }
+        });
+        th.setDaemon(true);
+        th.start();
+
+
+    }
 
 
 }

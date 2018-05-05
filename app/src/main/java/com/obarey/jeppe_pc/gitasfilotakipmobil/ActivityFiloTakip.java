@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.GridLayout;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
@@ -71,7 +73,43 @@ public class ActivityFiloTakip extends AppCompatActivity {
             });
         }
     }
+
+
     private void filo_download_init(){
+        final Activity this_ref = this;
+        Thread th = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while( true ){
+                    WebRequest req = new WebRequest();
+                    try {
+                        JSONArray data = req.req(WebRequest.MOBIL_SERVIS_URL, "req=mobil_oadd_download").getJSONArray("data");
+                        JSONObject temp;
+                        for( int k = 0; k < data.length(); k++ ){
+                            temp = data.getJSONObject(k);
+                            try {
+                                otobus_kutular.get( temp.getString("oto") ).set_data( temp, this_ref );
+                            } catch( JSONException | NullPointerException e ){
+                                // profilde kapali olan otobusleri nullpointer aticak
+                                //e.printStackTrace();
+                            }
+                        }
+                    } catch( JSONException e ){
+                        e.printStackTrace();
+                    }
+                    try {
+                        Thread.sleep(60000);
+                    } catch( InterruptedException e ){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        th.setDaemon(true);
+        th.start();
+    }
+
+    /*private void filo_download_init_old(){
         final Activity this_ref = this;
         Thread th = new Thread(new Runnable() {
             @Override
@@ -100,7 +138,7 @@ public class ActivityFiloTakip extends AppCompatActivity {
         });
         th.setDaemon(true);
         th.start();
-    }
+    }/*/
 
     /*@Override
     protected void onResume(){

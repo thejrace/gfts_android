@@ -68,7 +68,6 @@ public class FragmentTakipIYS extends Fragment {
                 });
             }
         });
-
         return layout;
     }
 

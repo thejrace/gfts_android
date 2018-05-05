@@ -2,7 +2,10 @@ package com.obarey.jeppe_pc.gitasfilotakipmobil;
 
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -39,18 +42,22 @@ public class Otobus {
     private LinearLayout ui_container;
     private ImageView led;
     private TextView notf_buyuk, notf_kucuk;
-
+    private String ui_main_notf, ui_notf, ui_tarih;
     private JSONArray orer_data = new JSONArray();
+    private JSONObject data = new JSONObject();
     private Map<String, Integer> sefer_ozet = new HashMap<>();
+    private OtobusPopupDialog dialog;
+    private OtobusPopupData otobus_popup_data;
     public Otobus( String _oto, String _ruhsat_plaka, String _aktif_plaka, String _sira ){
         oto = _oto;
-        box_data = new OtobusBoxData( _oto, _aktif_plaka, _ruhsat_plaka );
+        //box_data = new OtobusBoxData( _oto, _aktif_plaka, _ruhsat_plaka );
+        otobus_popup_data = new OtobusPopupData( _oto, _aktif_plaka, "", "","", "", "00000", "", "" );
         sira = _sira;
     }
 
-    public void set_data( JSONArray _data, final Activity context ){
+    public void set_data( JSONObject _data, final Activity context ){
         try {
-            orer_data = _data;
+            data = _data;
             update( context );
         } catch( JSONException e ){
             e.printStackTrace();
@@ -58,9 +65,24 @@ public class Otobus {
     }
 
     private void update( final Activity context ) throws JSONException {
+        ui_led = data.getString("durum");
+        //ui_main_notf = data.getString("main_notf");
+        //ui_notf = data.getString("notf");
+        //ui_tarih = data.getString("tarih");
 
+        otobus_popup_data.set_durum( data.getString("durum") );
+        otobus_popup_data.set_main_notf( data.getString("main_notf") );
+        otobus_popup_data.set_notf( data.getString("notf") );
+        otobus_popup_data.set_tarih( data.getString("tarih") );
+        otobus_popup_data.set_sefer_ozet( data.getString("sefer_ozet") );
+        otobus_popup_data.set_hat( data.getString("hat") );
+
+        update_ui( context );
+    }
+
+    @Deprecated
+    private void update_old( final Activity context ) throws JSONException {
         if( orer_data.length() == 0 ) return;
-
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         Date date = new Date();
         String SIMDI = dateFormat.format(date);
@@ -248,7 +270,6 @@ public class Otobus {
             @Override
             public void run() {
                 try {
-                    System.out.println(box_data.get_oto() + " Box oluşturuluyor..");
                     ui_container = new LinearLayout( context );
                     LinearLayout.LayoutParams layout_params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     layout_params.setMargins(5, 5, 5, 5);
@@ -271,13 +292,13 @@ public class Otobus {
                     notf_buyuk.setTextAppearance(context, R.style.notf_buyuk_style);
                     layout_params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT); // w, h
                     notf_buyuk.setLayoutParams(layout_params);
-                    notf_buyuk.setText(box_data.get_oto());
+                    notf_buyuk.setText(otobus_popup_data.get_oto());
 
                     notf_kucuk = new TextView( context );
                     notf_kucuk.setTextAppearance(context, R.style.notf_kucuk_style);
                     layout_params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT); // w, h
                     notf_buyuk.setLayoutParams(layout_params);
-                    notf_kucuk.setText(box_data.get_aktif_plaka());
+                    notf_kucuk.setText(otobus_popup_data.get_plaka());
 
                     alt_cont.addView( notf_buyuk, 0 );
                     alt_cont.addView( notf_kucuk, 1 );
@@ -288,10 +309,15 @@ public class Otobus {
                     ui_container.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(context, ActivityOtobusTakip.class);
-                            intent.putExtra("otobus_data", box_data );
-                            context.startActivity(intent);
-
+                            try {
+                                // zaten olusturduysak sadece verileri guncelle
+                                dialog.set_data( otobus_popup_data );
+                                System.out.println("data guncelle zaten init edilmis");
+                            } catch( NullPointerException e ){
+                                dialog = new OtobusPopupDialog( context, otobus_popup_data );
+                                System.out.println("ilk init");
+                            }
+                            dialog.show();
                         }
                     });
 
