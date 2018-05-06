@@ -9,12 +9,12 @@
 
 
     <LinearLayout
+        android:id="@+id/oto_popup_container"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:background="@drawable/otobus_box_background"
         android:gravity="center_vertical|center_horizontal"
-        android:orientation="vertical"
-        android:padding="30dp">
+        android:orientation="vertical">
 
 
         <LinearLayout
@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical|center_horizontal"
             android:orientation="horizontal"
+            android:background="@drawable/oto_popup_header"
             android:padding="5dp">
 
             <ImageView
@@ -29,41 +30,39 @@
                 android:layout_width="@dimen/led_size"
                 android:layout_height="@dimen/led_size"
                 android:layout_marginEnd="10dp"
+                android:layout_marginStart="5dp"
                 android:background="@drawable/led_default" />
 
             <TextView
                 android:id="@+id/oto_popup_kod"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:textAppearance="@style/otobus_popup_kod" />
+                android:textAppearance="@style/otobus_popup_kod"
+                android:layout_weight="0.2"/>
 
             <TextView
                 android:id="@+id/oto_popup_plaka"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/plaka"
                 android:paddingBottom="2dp"
                 android:paddingEnd="5dp"
                 android:paddingStart="12dp"
                 android:paddingTop="2dp"
-                android:textAppearance="@style/plaka_text" />
+                android:textAppearance="@style/plaka_text"
+                android:layout_weight="0.6"/>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical|center_horizontal"
-            android:orientation="horizontal"
-            android:padding="3dp">
 
             <TextView
                 android:id="@+id/oto_popup_hat"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="1dp"
-                android:textAppearance="@style/notf_buyuk_style" />
+                android:layout_marginStart="15dp"
+                android:textAppearance="@style/notf_buyuk_style"
+                android:textAlignment="textEnd"
+                android:layout_weight="0.2" />
 
         </LinearLayout>
 
@@ -71,134 +70,148 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/sefer_ozet_info_bg"
-            android:gravity="center_vertical|center_horizontal"
-            android:orientation="horizontal"
-            android:padding="5dp">
+            android:background="@drawable/oto_popup_mid"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
 
-            <LinearLayout
+
+            <TextView
+                android:id="@+id/oto_popup_ui_main_notf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:background="@drawable/sefer_ozet_box_aktif"
-                android:gravity="center_vertical|center_horizontal"
-                android:paddingBottom="2dp"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:paddingTop="2dp">
+                android:textAppearance="@style/ui_main_notf" />
 
-                <TextView
-                    android:id="@+id/oto_popup_ozet_aktif"
+            <TextView
+                android:id="@+id/oto_popup_ui_notf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textAppearance="@style/ui_notf" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/sefer_ozet_box" />
+                    android:layout_margin="2dp"
+                    android:background="@drawable/sefer_ozet_box_aktif"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:paddingBottom="2dp"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="2dp">
+
+                    <TextView
+                        android:id="@+id/oto_popup_ozet_aktif"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/sefer_ozet_box" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/sefer_ozet_box_tamam"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:paddingBottom="2dp"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="2dp">
+
+                    <TextView
+                        android:id="@+id/oto_popup_ozet_tamam"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/sefer_ozet_box" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/sefer_ozet_box_bekleyen"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:paddingBottom="2dp"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="2dp">
+
+                    <TextView
+                        android:id="@+id/oto_popup_ozet_bekleyen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/sefer_ozet_box" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/sefer_ozet_box_yarim"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:paddingBottom="2dp"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="2dp">
+
+                    <TextView
+                        android:id="@+id/oto_popup_ozet_yarim"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/sefer_ozet_box" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/sefer_ozet_box_iptal"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:paddingBottom="2dp"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="2dp">
+
+                    <TextView
+                        android:id="@+id/oto_popup_ozet_iptal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/sefer_ozet_box" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
+
+            <TextView
+                android:id="@+id/oto_popup_tarih"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:background="@drawable/sefer_ozet_box_tamam"
-                android:gravity="center_vertical|center_horizontal"
-                android:paddingBottom="2dp"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:paddingTop="2dp">
+                android:layout_marginTop="5dp"
+                android:textAppearance="@style/otobus_popup_tarih" />
 
-                <TextView
-                    android:id="@+id/oto_popup_ozet_tamam"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/sefer_ozet_box" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:background="@drawable/sefer_ozet_box_bekleyen"
-                android:gravity="center_vertical|center_horizontal"
-                android:paddingBottom="2dp"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:paddingTop="2dp">
-
-                <TextView
-                    android:id="@+id/oto_popup_ozet_bekleyen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/sefer_ozet_box" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:background="@drawable/sefer_ozet_box_yarim"
-                android:gravity="center_vertical|center_horizontal"
-                android:paddingBottom="2dp"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:paddingTop="2dp">
-
-                <TextView
-                    android:id="@+id/oto_popup_ozet_yarim"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/sefer_ozet_box" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:background="@drawable/sefer_ozet_box_iptal"
-                android:gravity="center_vertical|center_horizontal"
-                android:paddingBottom="2dp"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:paddingTop="2dp">
-
-                <TextView
-                    android:id="@+id/oto_popup_ozet_iptal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/sefer_ozet_box" />
-
-            </LinearLayout>
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/oto_popup_ui_main_notf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/ui_main_notf" />
-
-        <TextView
-            android:id="@+id/oto_popup_ui_notf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textAppearance="@style/ui_notf" />
-
-        <TextView
-            android:id="@+id/oto_popup_tarih"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textAppearance="@style/otobus_popup_tarih" />
-
 
 
         <Button
             android:id="@+id/oto_popup_btn_detay"
             android:layout_width="60dp"
             android:layout_height="30dp"
+            android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/gbtn"
             android:text="@string/detay"

@@ -271,7 +271,11 @@ public class Otobus {
             public void run() {
                 try {
                     ui_container = new LinearLayout( context );
-                    LinearLayout.LayoutParams layout_params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    //LinearLayout.LayoutParams layout_params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                    Map<String, Integer> screen_wh = Common.get_screen_res( context );
+                    LinearLayout.LayoutParams layout_params = new LinearLayout.LayoutParams((screen_wh.get("width") / 3)-40, LinearLayout.LayoutParams.WRAP_CONTENT );
+
                     layout_params.setMargins(5, 5, 5, 5);
                     ui_container.setPadding(10, 10, 10, 10);
                     ui_container.setLayoutParams( layout_params );

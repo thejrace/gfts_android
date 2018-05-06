@@ -24,6 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/main_background_lighter"
+        app:itemTextColor="@color/main_background"
+        app:itemBackground="@drawable/sefer_ozet_box_tamam"
         app:menu="@menu/navigation" />
 
 </LinearLayout>

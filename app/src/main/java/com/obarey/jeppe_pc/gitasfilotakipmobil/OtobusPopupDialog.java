@@ -10,7 +10,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.Map;
 
 public class OtobusPopupDialog extends Dialog {
 
@@ -65,6 +68,12 @@ public class OtobusPopupDialog extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.otobus_popup);
         getWindow().setBackgroundDrawable( new ColorDrawable(Color.TRANSPARENT));
+        LinearLayout container = (LinearLayout)findViewById(R.id.oto_popup_container);
+
+        Map<String, Integer> screen_wh = Common.get_screen_res( context );
+        LinearLayout.LayoutParams layout_params = new LinearLayout.LayoutParams(screen_wh.get("width")*70/100, LinearLayout.LayoutParams.WRAP_CONTENT );
+        container.setLayoutParams(layout_params);
+
         led = (ImageView)findViewById(R.id.oto_popup_led);
         oto_lbl = (TextView)findViewById(R.id.oto_popup_kod);
         plaka_lbl = (TextView)findViewById(R.id.oto_popup_plaka);

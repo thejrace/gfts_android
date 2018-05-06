@@ -151,6 +151,7 @@ public class FragmentTakipOrer extends Fragment {
                     JSONObject data = req.req(WebRequest.MOBIL_SERVIS_URL, "req=orer_download&oto="+oto+"&baslangic="+_tarih+"&bitis=&excel=true").getJSONObject("data");
                     JSONArray orer_data = data.getJSONArray("orer_data");
                     downloaded_data = new ArrayList<>();
+                    add_thead_data();
                     JSONObject sefer;
                     if( orer_data.length() == 0 ){
                         activity_ref.runOnUiThread(new Runnable() {
@@ -204,6 +205,29 @@ public class FragmentTakipOrer extends Fragment {
 
 
     }
-
+    private void add_thead_data(){
+        downloaded_data.add(new SeferData(
+                "#",
+                "Hat",
+                "",
+                "",
+                "",
+                "Sürücü",
+                "",
+                "",
+                "",
+                "Or",
+                "Ss",
+                "",
+                "Gdş",
+                "",
+                "Btş",
+                "TH",
+                "Dk",
+                "",
+                1,
+                1
+        ));
+    }
 
 }

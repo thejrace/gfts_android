@@ -1,8 +1,19 @@
 package com.obarey.jeppe_pc.gitasfilotakipmobil;
 
+import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
+import android.util.DisplayMetrics;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Common {
     public static String rev_datetime( String dt ){
@@ -63,5 +74,13 @@ public class Common {
 
     }
 
+    public static Map<String, Integer> get_screen_res( Activity ctx ){
+        Map<String, Integer> output = new HashMap<>();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ctx.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        output.put("height", displayMetrics.heightPixels);
+        output.put("width", displayMetrics.widthPixels);
+        return output;
+    }
 
 }

@@ -1,15 +1,12 @@
 package com.obarey.jeppe_pc.gitasfilotakipmobil;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.GridLayout;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,11 +22,6 @@ public class ActivityFiloTakip extends AppCompatActivity {
     private  Map<Integer, String> profil_sort_data = new HashMap<>();
 
     private int otobus_box_counter = 0;
-
-
-    private Intent service_intent;
-    private AlarmService alarm_service;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,35 +48,6 @@ public class ActivityFiloTakip extends AppCompatActivity {
         } catch( JSONException e ){
             e.printStackTrace();
         }
-
-
-        // Alarm kontrol serivisini baslat
-        alarm_service = new AlarmService(this);
-        service_intent = new Intent(this, alarm_service.getClass());
-        if (!alarm_servis_kontrol(alarm_service.getClass())) {
-            startService(service_intent);
-        }
-
-    }
-
-    private boolean alarm_servis_kontrol(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                Log.i ("AlarmServisOn?", true+"");
-                return true;
-            }
-        }
-        Log.i ("AlarmServisOn?", false+"");
-        return false;
-    }
-
-
-    @Override
-    protected void onDestroy() {
-        stopService(service_intent);
-        Log.i("ALARMSERVIS", "onDestroy!");
-        super.onDestroy();
     }
 
     private synchronized void box_counter(){
@@ -109,16 +72,15 @@ public class ActivityFiloTakip extends AppCompatActivity {
             });
         }
     }
-
-
     private void filo_download_init(){
         final Activity this_ref = this;
         Thread th = new Thread(new Runnable() {
             @Override
             public void run() {
                 while( true ){
-                    WebRequest req = new WebRequest();
+
                     try {
+                        WebRequest req = new WebRequest();
                         JSONArray data = req.req(WebRequest.MOBIL_SERVIS_URL, "req=mobil_oadd_download").getJSONArray("data");
                         JSONObject temp;
                         for( int k = 0; k < data.length(); k++ ){
@@ -130,8 +92,9 @@ public class ActivityFiloTakip extends AppCompatActivity {
                                 //e.printStackTrace();
                             }
                         }
-                    } catch( JSONException e ){
+                    } catch( JSONException | NullPointerException e ){
                         e.printStackTrace();
+                        Toast.makeText(this_ref, "İnternet bağlantınızı kontrol edin!", Toast.LENGTH_LONG).show();
                     }
                     try {
                         Thread.sleep(60000);
@@ -144,43 +107,4 @@ public class ActivityFiloTakip extends AppCompatActivity {
         th.setDaemon(true);
         th.start();
     }
-
-    /*private void filo_download_init_old(){
-        final Activity this_ref = this;
-        Thread th = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while( true ){
-                    WebRequest req = new WebRequest();
-                    try {
-                        JSONObject data = req.req(WebRequest.MOBIL_SERVIS_URL, "req=mobil_orer_download").getJSONObject("data");
-                        for (Map.Entry<String, Otobus> entry : otobus_kutular.entrySet()) {
-                            try {
-                                entry.getValue().set_data( data.getJSONArray(entry.getKey()), this_ref );
-                            } catch( JSONException e ){
-                                e.printStackTrace();
-                            }
-                        }
-                    } catch( JSONException e ){
-                        e.printStackTrace();
-                    }
-                    try {
-                        Thread.sleep(60000);
-                    } catch( InterruptedException e ){
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-        th.setDaemon(true);
-        th.start();
-    }/*/
-
-    /*@Override
-    protected void onResume(){
-        super.onResume();
-
-        System.out.println("Geri geldim cookielerimi ver lan ipne");
-    }*/
-
 }
