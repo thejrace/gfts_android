@@ -8,10 +8,12 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -73,10 +75,10 @@ public class AlarmService extends Service {
     public void onDestroy() {
         super.onDestroy();
         Log.i("GAlarmServis", "ondestroy!");
-        // kullanıcı programı kapadığında, bu service class ından AlarmServiceRestarter' e, Intent e
-        // parametre olarak girdigimiz mesaji gonderiyoruz ( Manifestte de tanımlı olacak )
+        // kullanıcı programı kapadığında, bu service class ından AlarmServiceRestarter' e,
+        // Intent' e parametre olarak girdigimiz mesaji gonderiyoruz ( Manifestte de tanımlı olacak )
         // bunu goren BroadcastReciever servisimizi tekrar baslatacak
-        // Ayarlardan Durmaya Zorla denilene kadar bu servis arkada çalışacakj
+        // Ayarlardan Durmaya Zorla denilene kadar bu servis arkada çalışacak
         Intent broadcast_intent = new Intent("com.obarey.jeppe_pc.gitasfilotakipmobil.ActivityRecognition.RestartAlarmService");
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             sendBroadcast(broadcast_intent);
@@ -92,15 +94,13 @@ public class AlarmService extends Service {
         stop_alarm_servis();
     }
 
-
     private void servis_action(){
        timer = new Timer();
        init_timer_task();
-       timer.schedule( timer_task, 5, 30000 );
+       SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+       timer.schedule( timer_task, 5, Integer.valueOf(sp.getString("alarm_kontrol_frekans", "60"))*1000 );
     }
-    /**
-     * it sets the timer to print the counter every x seconds
-     */
+
     public void init_timer_task() {
         timer_task = new TimerTask() {
             public void run() {
@@ -148,9 +148,7 @@ public class AlarmService extends Service {
                 .setAutoCancel(true); // clear notification after click
         mNotificationManager.notify(id, mBuilder.build());
     }
-    /**
-     * not needed
-     */
+
     public void stop_alarm_servis() {
         if (timer != null) {
             timer.cancel();

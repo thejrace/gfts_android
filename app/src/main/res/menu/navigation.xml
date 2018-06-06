@@ -3,22 +3,17 @@
 
     <item
         android:id="@+id/detay_nav_orer"
-        android:icon="@drawable/ic_menu_send"
+        android:icon="@drawable/tab_ico_orer"
         android:title="@string/title_orer" />
 
     <item
         android:id="@+id/detay_nav_mesaj"
-        android:icon="@drawable/ic_menu_send"
+        android:icon="@drawable/tab_ico_mesaj"
         android:title="@string/title_mesaj" />
 
     <item
         android:id="@+id/detay_nav_iys"
-        android:icon="@drawable/ic_menu_send"
+        android:icon="@drawable/tab_ico_iys"
         android:title="@string/title_iys" />
-
-    <item
-        android:id="@+id/detay_nav_not"
-        android:icon="@drawable/ic_menu_send"
-        android:title="@string/title_not" />
 
 </menu>

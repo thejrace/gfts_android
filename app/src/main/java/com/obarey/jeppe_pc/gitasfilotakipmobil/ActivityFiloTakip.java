@@ -55,13 +55,12 @@ public class ActivityFiloTakip extends AppCompatActivity {
     }
 
     private void box_ui_callback(){
-        final Activity this_ref = this;
         if( otobus_box_counter == UserConfig.otobusler.length() ){
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     Otobus otobus;
-                    for( int k = 0; k < UserConfig.otobusler.length(); k++ ){
+                    for( int k = 0; k < UserConfig.otobusler.length() +1; k++ ){
                         try {
                             otobus = otobus_kutular.get(profil_sort_data.get(k));
                             otobus_box_container.addView( otobus.get_box() );
@@ -72,13 +71,13 @@ public class ActivityFiloTakip extends AppCompatActivity {
             });
         }
     }
+
     private void filo_download_init(){
         final Activity this_ref = this;
         Thread th = new Thread(new Runnable() {
             @Override
             public void run() {
                 while( true ){
-
                     try {
                         WebRequest req = new WebRequest();
                         JSONArray data = req.req(WebRequest.MOBIL_SERVIS_URL, "req=mobil_oadd_download").getJSONArray("data");

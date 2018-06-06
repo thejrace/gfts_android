@@ -4,7 +4,9 @@ import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -24,7 +26,9 @@ import org.json.JSONObject;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -50,24 +54,41 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        UserConfig.eposta = "test@test.com";
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String eposta = sp.getString("eposta", "obarey");
+
+        ctx = this;
+        if( eposta.equals("obarey") ){
+            Intent intent = new Intent(this, ActivityGiris.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+            return;
+        }
 
         loader = ProgressDialog.show(this, "Lütfen bekleyin...", "Sunucuyla iletişim kuruluyor..", true);
-        ctx = this;
         Thread th = new Thread(new Runnable() {
             @Override
             public void run() {
-
                 try {
                     WebRequest req = new WebRequest();
+                    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    UserConfig.eposta = sp.getString("eposta", "obarey");
                     JSONObject data = req.req( WebRequest.MOBIL_SERVIS_URL, "req=app_data" ).getJSONObject("data");
-                    UserConfig.otobusler = data.getJSONArray("otobusler");
+                    UserConfig.set_user_data( getApplicationContext(), data );
 
-                    // Alarm kontrol serivisini baslat
                     alarm_service = new AlarmService(ctx);
                     service_intent = new Intent(ctx, alarm_service.getClass());
-                    if (!alarm_servis_kontrol(alarm_service.getClass())) {
-                        startService(service_intent);
+                    if( sp.getBoolean("alarm_servis_durum", true ) ){
+                        // Alarm kontrol serivisini baslat
+                        if (!alarm_servis_kontrol(alarm_service.getClass())) {
+                            startService(service_intent);
+                        }
+                    } else {
+                        if (alarm_servis_kontrol(alarm_service.getClass())) {
+                            stopService(service_intent);
+                        }
                     }
                     runOnUiThread(new Runnable() {
                         @Override
@@ -155,10 +176,10 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_filo_takip) {
             Intent intent = new Intent(this, ActivityFiloTakip.class);
             startActivity(intent);
-        } else if (id == R.id.nav_ariza_bildirimi) {
+        } else if (id == R.id.nav_cihazlar) {
 
         } else if (id == R.id.nav_ayarlar) {
-            Intent intent = new Intent(this, ActivityOtobusTakip.class);
+            Intent intent = new Intent(this, ActivityAyarlar.class);
             startActivity(intent);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

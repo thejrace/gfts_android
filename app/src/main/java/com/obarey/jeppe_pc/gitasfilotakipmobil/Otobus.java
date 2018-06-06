@@ -272,7 +272,6 @@ public class Otobus {
                 try {
                     ui_container = new LinearLayout( context );
                     //LinearLayout.LayoutParams layout_params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
                     Map<String, Integer> screen_wh = Common.get_screen_res( context );
                     LinearLayout.LayoutParams layout_params = new LinearLayout.LayoutParams((screen_wh.get("width") / 3)-40, LinearLayout.LayoutParams.WRAP_CONTENT );
 

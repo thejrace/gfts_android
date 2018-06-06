@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="alarm_tipleri">
+        <item>Sefer İptal</item>
+        <item>Sefer Yarım</item>
+        <item>Seferler Düzeltildi</item>
+        <item>Sürücü Değişimi</item>
+        <item>Belirsiz Sürücü</item>
+        <item>Geç Kalma</item>
+        <item>Sefere Yetişememe</item>
+        <item>Amir Saat Atama</item>
+        <item>Yeni Not</item>
+        <item>Not Tamamlandı</item>
+        <item>Yeni Not Bildirimi</item>
+        <item>Yeni IYS</item>
+        <item>Sürücü Çalışma Limiti</item>
+    </string-array>
+
+    <string-array name="alarm_tipleri_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+</resources>

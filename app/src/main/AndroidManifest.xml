@@ -5,6 +5,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/app_ico"
@@ -27,7 +32,6 @@
             android:name=".ActivityFiloTakip"
             android:label="@string/title_activity_filo_takip"
             android:launchMode="singleTask"
-
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ActivityOtobusTakip"
@@ -35,21 +39,23 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service
-            android:name="com.obarey.jeppe_pc.gitasfilotakipmobil.AlarmService"
-            android:enabled="true" >
-        </service>
+            android:name=".AlarmService"
+            android:enabled="true" />
 
         <receiver
-            android:name="com.obarey.jeppe_pc.gitasfilotakipmobil.AlarmServiceRestarter"
+            android:name=".AlarmServiceRestarter"
             android:enabled="true"
             android:exported="true"
             android:label="RestartServiceWhenStopped">
             <intent-filter>
-                <action android:name="com.obarey.jeppe_pc.gitasfilotakipmobil.ActivityRecognition.RestartAlarmService"/>
+                <action android:name="com.obarey.jeppe_pc.gitasfilotakipmobil.ActivityRecognition.RestartAlarmService" />
             </intent-filter>
         </receiver>
 
-
+        <activity android:name=".ActivityAyarlar" />
+        <activity
+            android:name=".ActivityGiris"
+            android:label="@string/title_activity_giris"></activity>
     </application>
 
 </manifest>

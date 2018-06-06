@@ -53,6 +53,12 @@
 
     </style>
 
+    <style name="surucu_calisma_saat_style">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/ek_sari</item>
+
+    </style>
+
     <style name="otobus_takip_fragment_header">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/filo_table_tamam</item>

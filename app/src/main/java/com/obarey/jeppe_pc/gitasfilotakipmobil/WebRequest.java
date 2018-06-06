@@ -78,7 +78,7 @@ public class WebRequest {
 
             parmas.put("mobil", "true" );
             if( kullanici_params ){
-                parmas.put("eposta", "test@test.com" );
+                parmas.put("eposta", "test2@test2.com" );
                 parmas.put("tel_hash", "test mobil hash");
                 parmas.put("tel_adi", "test mobil isim" );
             }
@@ -118,7 +118,7 @@ public class WebRequest {
     public JSONObject req( String urlTo, String params ){
 
         if( kullanici_params ){
-            params += "&mobil=true&eposta=test@test.com&tel_hash=test mobil hash&tel_adi=test mobil isim";
+            params += "&mobil=true&eposta="+UserConfig.eposta+"&tel_hash=test mobil hash&tel_adi=test mobil isim";
         }
 
         String output;

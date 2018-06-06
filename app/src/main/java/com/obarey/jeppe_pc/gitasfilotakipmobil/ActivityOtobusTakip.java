@@ -17,7 +17,7 @@ public class ActivityOtobusTakip extends AppCompatActivity {
     private String oto;
     private OtobusPopupData otobus_box_data;
 
-    private android.support.v4.app.Fragment takip_orer_fragment, takip_iys_fragment, takip_mesaj_fragment, takip_not_fragment;
+    private android.support.v4.app.Fragment takip_orer_fragment, takip_iys_fragment, takip_mesaj_fragment, takip_suruculer_fragment, takip_hiz_fragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -37,10 +37,14 @@ public class ActivityOtobusTakip extends AppCompatActivity {
                     if( takip_iys_fragment == null ) takip_iys_fragment = new FragmentTakipIYS();
                     init_tab_fragment( takip_iys_fragment );
                     return true;
-                case R.id.detay_nav_not:
-                    if( takip_not_fragment == null ) takip_not_fragment = new FragmentTakipNot();
-                    init_tab_fragment( takip_not_fragment );
+                /*case R.id.detay_nav_surucu:
+                    if( takip_suruculer_fragment == null ) takip_suruculer_fragment = new FragmentTakipSuruculer();
+                    init_tab_fragment( takip_suruculer_fragment );
                     return true;
+                case R.id.detay_nav_hiz:
+                    if( takip_hiz_fragment == null ) takip_hiz_fragment = new FragmentTakipHiz();
+                    init_tab_fragment( takip_hiz_fragment );
+                    return true;*/
             }
             return false;
         }

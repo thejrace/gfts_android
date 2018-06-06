@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Alarm Servisi">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="alarm_servis_durum"
+            android:title="Durum" />
+        <EditTextPreference
+            android:defaultValue="60"
+            android:key="alarm_kontrol_frekans"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:dialogTitle="Frekans ( sn )"
+            android:dialogMessage="Alarmların Kontrol Frekansı"
+            android:summary="60"
+            android:title="Frekans ( sn )"
+            android:dependency="alarm_servis_durum" />
+
+        <MultiSelectListPreference
+            android:dependency="alarm_servis_durum"
+            android:key="alarmlar"
+            android:title="Alarm Tipleri"
+            android:dialogTitle="Alarm Tipleri"
+            android:summary="Kontrol edilecek alarmları seçin."
+            android:entries="@array/alarm_tipleri"
+            android:entryValues="@array/alarm_tipleri_values"
+
+            />
+
+        <EditTextPreference
+            android:defaultValue="60"
+            android:key="surucu_calisma_saati"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:dialogTitle="Sürücü Çalışma Limiti ( saat )"
+            android:dialogMessage="Sürücü çalışma saat limiti"
+            android:summary="Sürücü çalışma saat limiti"
+            android:title="Sürücü Çalışma Limiti ( saat )"
+            android:dependency="alarm_servis_durum" />
+
+
+    </PreferenceCategory>
+</PreferenceScreen>
