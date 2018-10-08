@@ -101,4 +101,17 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="zayi_switch" >
+        <item name="android:textColor">@color/led_iptal</item>
+        <item name="android:textStyle">bold</item>
+
+        <item name="thumbTint">@color/ek_sari</item>
+        <item name="trackTint">@color/led_iptal</item>
+    </style>
+
+    <style name="filter_header">
+        <item name="android:textColor">@color/led_tamam</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
 </resources>

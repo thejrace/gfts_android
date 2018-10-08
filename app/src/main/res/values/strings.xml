@@ -109,5 +109,8 @@
     <string name="error_invalid_password">Şifre çok kısa</string>
     <string name="error_incorrect_password">Hata</string>
     <string name="error_field_required">Bu alan zorunludur.</string>
+    <string name="switch_zayi">Zayi</string>
+    <string name="filter_header">Filtrele</string>
+    <string name="filo_takip_header">Otobüsler</string>
 
 </resources>

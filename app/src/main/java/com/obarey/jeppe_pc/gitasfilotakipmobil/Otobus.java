@@ -48,11 +48,14 @@ public class Otobus {
     private Map<String, Integer> sefer_ozet = new HashMap<>();
     private OtobusPopupDialog dialog;
     private OtobusPopupData otobus_popup_data;
+    private Map<String, Boolean> filter_data = new HashMap<>();
     public Otobus( String _oto, String _ruhsat_plaka, String _aktif_plaka, String _sira ){
         oto = _oto;
         //box_data = new OtobusBoxData( _oto, _aktif_plaka, _ruhsat_plaka );
-        otobus_popup_data = new OtobusPopupData( _oto, _aktif_plaka, "", "","", "", "00000", "", "" );
+        otobus_popup_data = new OtobusPopupData( _oto, _aktif_plaka, "", "","", "", "0","0","0","0","0", "", "" );
         sira = _sira;
+
+        filter_data.put(OtobusBoxFilter.ZAYI, false);
     }
 
     public void set_data( JSONObject _data, final Activity context ){
@@ -65,18 +68,23 @@ public class Otobus {
     }
 
     private void update( final Activity context ) throws JSONException {
+        // her yeni data oncesi filterleri sıfırla
+        filter_data.put(OtobusBoxFilter.ZAYI, false);
         ui_led = data.getString("durum");
-        //ui_main_notf = data.getString("main_notf");
-        //ui_notf = data.getString("notf");
-        //ui_tarih = data.getString("tarih");
-
         otobus_popup_data.set_durum( data.getString("durum") );
         otobus_popup_data.set_main_notf( data.getString("main_notf") );
         otobus_popup_data.set_notf( data.getString("notf") );
         otobus_popup_data.set_tarih( data.getString("tarih") );
-        otobus_popup_data.set_sefer_ozet( data.getString("sefer_ozet") );
         otobus_popup_data.set_hat( data.getString("hat") );
-
+        try {
+            String parts[] = data.getString("sefer_ozet").split("\\|");
+            otobus_popup_data.set_aktif_seferler(parts[0]);
+            otobus_popup_data.set_tamam_seferler(parts[1]);
+            otobus_popup_data.set_bekleyen_seferler(parts[2]);
+            if( !parts[3].equals("0") || !parts[4].equals("0") ) filter_data.put(OtobusBoxFilter.ZAYI, true);
+            otobus_popup_data.set_yarim_seferler(parts[3]);
+            otobus_popup_data.set_iptal_seferler(parts[4]);
+        } catch( StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e ){}
         update_ui( context );
     }
 
@@ -315,10 +323,8 @@ public class Otobus {
                             try {
                                 // zaten olusturduysak sadece verileri guncelle
                                 dialog.set_data( otobus_popup_data );
-                                System.out.println("data guncelle zaten init edilmis");
                             } catch( NullPointerException e ){
                                 dialog = new OtobusPopupDialog( context, otobus_popup_data );
-                                System.out.println("ilk init");
                             }
                             dialog.show();
                         }
@@ -332,6 +338,10 @@ public class Otobus {
         });
         th.setDaemon(true);
         th.start();
+    }
+
+    public boolean get_filter_data( String key ){
+        return filter_data.get(key);
     }
 
     public LinearLayout get_box(){

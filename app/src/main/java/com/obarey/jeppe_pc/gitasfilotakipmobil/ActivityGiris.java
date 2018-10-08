@@ -225,8 +225,6 @@ public class ActivityGiris extends AppCompatActivity {
             return true;
         }
 
-
-
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;

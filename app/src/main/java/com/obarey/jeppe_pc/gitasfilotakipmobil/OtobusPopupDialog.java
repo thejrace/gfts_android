@@ -36,16 +36,7 @@ public class OtobusPopupDialog extends Dialog {
         oto_lbl.setText(data.get_oto());
         plaka_lbl.setText(data.get_plaka());
         hat_lbl.setText(data.get_hat());
-        String parts[] = data.get_sefer_ozet().split("\\|");
-        try {
-            ozet_aktif_lbl.setText( String.valueOf(parts[0]));
-            ozet_tamam_lbl.setText(String.valueOf(parts[1]));
-            ozet_bekleyen_lbl.setText(String.valueOf(parts[2]));
-            ozet_yarim_lbl.setText(String.valueOf(parts[3]));
-            ozet_iptal_lbl.setText(String.valueOf(parts[4]));
-        } catch( ArrayIndexOutOfBoundsException e ){
-            e.printStackTrace();
-        }
+
         main_notf_lbl.setText(data.get_main_notf());
         notf_lbl.setText(data.get_notf());
         tarih_lbl.setText(Common.rev_datetime(data.get_tarih()));
@@ -60,6 +51,13 @@ public class OtobusPopupDialog extends Dialog {
         } else if( data.get_durum().equals(SeferData.DYARIM) ){
             led.setImageResource(R.drawable.led_yarim);
         }
+
+        ozet_aktif_lbl.setText(data.get_aktif_seferler());
+        ozet_tamam_lbl.setText(data.get_tamam_seferler());
+        ozet_bekleyen_lbl.setText(data.get_bekleyen_seferler());
+        ozet_yarim_lbl.setText(data.get_yarim_seferler());
+        ozet_iptal_lbl.setText(data.get_iptal_seferler());
+
     }
 
     @Override

@@ -17,14 +17,22 @@ import java.util.Map;
 
 public class Common {
     public static String rev_datetime( String dt ){
-        String date = dt.substring(0, 10);
-        String[] exp = date.split("-");
-        return exp[2]+"-"+exp[1]+"-"+exp[0]+ " " + dt.substring(11);
+        try {
+            String date = dt.substring(0, 10);
+            String[] exp = date.split("-");
+            return exp[2]+"-"+exp[1]+"-"+exp[0]+ " " + dt.substring(11);
+        } catch( StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e ){
+            return "";
+        }
     }
 
     public static String rev_date( String dt ){
-        String[] exp = dt.split("-");
-        return  exp[2]+"-"+exp[1]+"-"+exp[0];
+        try {
+            String[] exp = dt.split("-");
+            return  exp[2]+"-"+exp[1]+"-"+exp[0];
+        } catch( StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e ){
+            return "";
+        }
     }
 
     public static String iys_to_date( String iys_tarih ){
